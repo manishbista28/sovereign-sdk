@@ -4,9 +4,8 @@ use serde::de::DeserializeOwned;
 use serde::Serialize;
 
 use crate::da::BlockHeaderTrait;
-#[cfg(feature = "native")]
+
 use crate::da::{DaSpec, DaVerifier};
-#[cfg(feature = "native")]
 use crate::maybestd::vec::Vec;
 use crate::zk::ValidityCondition;
 
@@ -15,7 +14,7 @@ use crate::zk::ValidityCondition;
 ///
 /// The DaService has two responsibilities - fetching data from the DA layer, transforming the
 /// data into a representation that can be efficiently verified in circuit.
-#[cfg(feature = "native")]
+
 #[async_trait::async_trait]
 pub trait DaService: Send + Sync + 'static {
     /// A handle to the types used by the DA layer.
@@ -30,6 +29,7 @@ pub trait DaService: Send + Sync + 'static {
         Cond = <Self::Spec as DaSpec>::ValidityCondition,
     >;
 
+    #[cfg(feature = "native")]
     /// Type that allow to consume [`futures::Stream`] of BlockHeaders.
     type HeaderStream: futures::Stream<
         Item = Result<<Self::Spec as DaSpec>::BlockHeader, Self::Error>,
@@ -53,6 +53,7 @@ pub trait DaService: Send + Sync + 'static {
         &self,
     ) -> Result<<Self::Spec as DaSpec>::BlockHeader, Self::Error>;
 
+    #[cfg(feature = "native")]
     /// Subscribe to finalized headers as they are finalized.
     /// Expect only to receive headers which were finalized after subscription
     /// Optimized version of `get_last_finalized_block_header`.

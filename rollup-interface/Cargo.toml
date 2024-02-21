@@ -41,7 +41,7 @@ proptest-derive = { workspace = true }
 
 [features]
 default = ["std"]
-native = ["std", "tokio"]
+native = ["std", "tokio" ]
 fuzzing = ["proptest", "proptest-derive", "sha2", "std"]
 std = [
     "anyhow/default",
