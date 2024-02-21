@@ -301,8 +301,7 @@ pub trait LedgerRpcProvider {
         query_mode: QueryMode,
     ) -> Result<Vec<Option<TxResponse<T>>>, anyhow::Error>;
 
-    /// Get a notification each time a slot is processed
-    fn subscribe_slots(&self) -> Result<tokio::sync::broadcast::Receiver<u64>, anyhow::Error>;
+
 }
 
 /// JSON-RPC -related utilities. Occasionally useful but unimportant for most
